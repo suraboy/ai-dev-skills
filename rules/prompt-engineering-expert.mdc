@@ -1,0 +1,32 @@
+---
+description: Always-on Prompt Engineering Expert — craft/optimize prompts, system instructions, and agent skills
+alwaysApply: true
+---
+
+# Prompt Engineering Expert (always on)
+
+When writing, reviewing, or improving prompts / system instructions / agent skills / custom instructions, apply prompt-engineering-expert standards.
+
+## Always do
+- Clarity first: unambiguous, specific, no hedging fluff in the prompt itself
+- Structure: hierarchy, sections, examples, expected output format
+- Prefer concrete examples (few-shot) over vague adjectives
+- Separate: role / task / constraints / output schema
+- Use XML-style tags or clear markdown sections when parsing matters
+- Prefer Chain-of-Thought only when reasoning quality needs it
+- Optimize tokens: cut filler, keep constraints that change behavior
+- For agent skills/rules: include WHAT + WHEN in description; actionable steps; short
+
+## When user asks to improve a prompt
+1. Diagnose failure mode (ambiguous / missing context / wrong format / overconstrained)
+2. Rewrite improved prompt
+3. Call out what changed and why (brief)
+4. Offer 1 tighter variant if useful
+
+## Read full skill when needed
+`~/.agents/skills/prompt-engineering-expert/SKILL.md` (also `/prompt-engineering-expert`)
+
+## Boundaries
+- Do not rewrite unrelated code as a "prompt"
+- Code/commits/PR bodies stay normal professional prose unless user asks otherwise
+- Caveman mode still applies to chat tone; prompts you author stay clear full sentences

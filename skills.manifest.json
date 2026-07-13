@@ -1,0 +1,138 @@
+[
+  {
+    "id": "caveman",
+    "source": "JuliusBrussee/caveman@caveman",
+    "scope": "global",
+    "alwaysOn": true,
+    "purpose": "Terse chat tone / โหมดพูดสั้น — cut fluff, keep technical accuracy",
+    "invoke": "/caveman"
+  },
+  {
+    "id": "prompt-engineering-expert",
+    "source": "tomstools11/prompt-engineering-expert@prompt-engineering-expert",
+    "scope": "global",
+    "alwaysOn": true,
+    "purpose": "Craft/optimize prompts, system instructions, agent skills",
+    "invoke": "/prompt-engineering-expert"
+  },
+  {
+    "id": "technical-writing",
+    "source": "mindrally/skills@technical-writing",
+    "scope": "global",
+    "alwaysOn": true,
+    "purpose": "Clear developer docs, tutorials, ADRs, runbooks",
+    "invoke": "/technical-writing"
+  },
+  {
+    "id": "architecture-reviewer",
+    "source": "mathews-tom/armory@architecture-reviewer",
+    "scope": "global",
+    "alwaysOn": true,
+    "purpose": "Opinionated architecture critique across 7 dimensions (scored 1–5)",
+    "invoke": "/architecture-reviewer"
+  },
+  {
+    "id": "rag-engineer",
+    "source": "sickn33/antigravity-awesome-skills@rag-engineer",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "RAG systems: embeddings, chunking, retrieval, vector DBs",
+    "invoke": "/rag-engineer"
+  },
+  {
+    "id": "ai-agents-architect",
+    "source": "sickn33/antigravity-awesome-skills@ai-agents-architect",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Design autonomous agents: tools, memory, multi-agent orchestration",
+    "invoke": "/ai-agents-architect"
+  },
+  {
+    "id": "evaluation",
+    "source": "sickn33/antigravity-awesome-skills@evaluation",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Eval frameworks for agent systems and context engineering",
+    "invoke": "/evaluation"
+  },
+  {
+    "id": "system-design",
+    "source": "wondelai/skills@system-design",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Scalable distributed system design and capacity planning",
+    "invoke": "/system-design"
+  },
+  {
+    "id": "architecture",
+    "source": "sickn33/antigravity-awesome-skills@architecture",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Architecture decisions, trade-offs, ADR documentation",
+    "invoke": "/architecture"
+  },
+  {
+    "id": "prompt-improver",
+    "source": "dotneet/claude-code-marketplace@prompt-improver",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Improve a prompt: diagnose gaps, rewrite, improvement points",
+    "invoke": "/prompt-improver"
+  },
+  {
+    "id": "prompt-engineer",
+    "source": "sickn33/antigravity-awesome-skills@prompt-engineer",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Transform prompts via frameworks (RTF, RISEN, CoT, RODES, …)",
+    "invoke": "/prompt-engineer"
+  },
+  {
+    "id": "caveman-commit",
+    "source": "JuliusBrussee/caveman@caveman-commit",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Terse Conventional Commits messages",
+    "invoke": "/caveman-commit"
+  },
+  {
+    "id": "caveman-compress",
+    "source": "JuliusBrussee/caveman@caveman-compress",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Compress memory/CLAUDE.md files into caveman format",
+    "invoke": "/caveman-compress"
+  },
+  {
+    "id": "caveman-help",
+    "source": "JuliusBrussee/caveman@caveman-help",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Quick-reference card for caveman modes and siblings",
+    "invoke": "/caveman-help"
+  },
+  {
+    "id": "caveman-review",
+    "source": "JuliusBrussee/caveman@caveman-review",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "One-line PR review comments: location, problem, fix",
+    "invoke": "/caveman-review"
+  },
+  {
+    "id": "caveman-stats",
+    "source": "JuliusBrussee/caveman@caveman-stats",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Show session token usage / estimated savings",
+    "invoke": "/caveman-stats"
+  },
+  {
+    "id": "cavecrew",
+    "source": "JuliusBrussee/caveman@cavecrew",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Delegate to caveman-compressed subagents (investigator/builder/reviewer)",
+    "invoke": "/cavecrew"
+  }
+]

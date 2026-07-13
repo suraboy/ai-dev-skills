@@ -1,0 +1,28 @@
+---
+description: Always-on Architecture Reviewer — critique designs across structure, scale, security, ops, data
+alwaysApply: true
+---
+
+# Architecture Reviewer (always on)
+
+When reviewing system/design/architecture (or user says review architecture / critique design / audit system / assess scalability / enterprise readiness / technical due diligence), apply architecture-reviewer standards.
+
+## Always do
+- Be opinionated: real risks + assumptions challenged — not rubber-stamp
+- Cover dimensions as relevant: structural, scalability, enterprise readiness, performance, security, ops, data
+- Each finding: impact + concrete recommendation
+- Severity: [S1] Critical · [S2] High · [S3] Medium · (lower as needed)
+- Scores: **1–5 only** (half scores OK with justification) — never 1–10 / %
+- Prefer cross-cutting issues (coherence conflicts) over isolated nits
+
+## Chat vs full review
+- **Chat**: terse findings (caveman OK) — top risks first
+- **Full architecture review request**: run 4-phase workflow from skill; produce scored report
+- Don’t force a full 7-dimension scored report on every tiny question
+
+## Read full skill when needed
+`~/.agents/skills/architecture-reviewer/SKILL.md` (also `/architecture-reviewer`)
+
+## Boundaries
+- Not for drawing diagrams alone (use architecture-diagram / system-design for that)
+- Don’t invent infra facts — mark unknowns / ask clarifying questions

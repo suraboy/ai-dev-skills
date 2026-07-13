@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+node_modules/
+skills-lock.json
+.cursor/
+.agents/
