@@ -93,4 +93,4 @@ To minimize token consumption and maximize context efficiency, use the following
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). Upstream skills keep their own licenses.
+MIT © 2026 Sirichai Janpan ([sjanpan](https://github.com/sjanpan)) — see [LICENSE](./LICENSE). Upstream skills keep their own licenses.
