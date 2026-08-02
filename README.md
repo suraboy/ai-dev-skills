@@ -55,6 +55,8 @@ To minimize token consumption and maximize context efficiency, use the following
 | `/caveman-commit` | Generates short, high-signal Conventional Commit messages. | Reduces commit output tokens |
 | `/caveman-review` | Provides single-line PR review comments (`location: problem. fix.`). | Cuts review output noise |
 | `/caveman-stats` | Displays real-time session token usage and estimated token savings. | Session token tracking |
+| `/claude-context` | Checks live context window fill level & free space. | Prevents context overflow |
+| `/claude-usage` | Displays session token consumption & estimated API cost breakdown. | API cost & token tracking |
 
 ### Best Practices for Token Efficiency
 1. **Reset Chat Sessions:** Start a fresh chat window when switching tasks to clear accumulated turn history.
@@ -66,6 +68,7 @@ To minimize token consumption and maximize context efficiency, use the following
 | Editor / Agent | Rules Directory | Skills Directory | MCP Config |
 | --- | --- | --- | --- |
 | **Cursor** | `~/.cursor/rules/` | `~/.cursor/skills/` | `~/.cursor/mcp.json` |
+| **Antigravity (Gemini)** | `~/.gemini/config/rules/` | `~/.gemini/config/skills/` | `~/.gemini/mcp.json` |
 | **Claude Code** | `~/.claude/rules/` | `~/.claude/skills/` | `~/.claude/mcp.json` |
 | **Kiro** | `~/.kiro/rules/` | `~/.kiro/skills/` | `~/.kiro/mcp.json` |
 | **VS Code** | `~/.vscode/rules/` | `~/.vscode/skills/` | `~/.vscode/mcp.json` |

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install skills & rules for Cursor, Claude, Kiro, and VS Code.
+# Install skills & rules for Cursor, Antigravity (Gemini), Claude, Kiro, and VS Code.
 # Idempotent, non-interactive. No sudo. No secrets.
 set -euo pipefail
 
@@ -7,14 +7,16 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MANIFEST="${ROOT}/skills.manifest.json"
 RULES_SRC="${ROOT}/rules"
 
-# Target directories for Cursor, Claude, Kiro, and VS Code
+# Target directories for Cursor, Antigravity, Claude, Kiro, and VS Code
 CURSOR_RULES="${HOME}/.cursor/rules"
+GEMINI_RULES="${HOME}/.gemini/config/rules"
 CLAUDE_RULES="${HOME}/.claude/rules"
 VSCODE_RULES="${HOME}/.vscode/rules"
 KIRO_RULES="${HOME}/.kiro/rules"
 
 AGENTS_SKILLS="${HOME}/.agents/skills"
 CURSOR_SKILLS="${HOME}/.cursor/skills"
+GEMINI_SKILLS="${HOME}/.gemini/config/skills"
 CLAUDE_SKILLS="${HOME}/.claude/skills"
 VSCODE_SKILLS="${HOME}/.vscode/skills"
 KIRO_SKILLS="${HOME}/.kiro/skills"
@@ -36,11 +38,11 @@ need_cmd npx
 need_cmd curl
 [[ -f "$MANIFEST" ]] || die "manifest not found: $MANIFEST"
 
-echo "==> ai-dev-skills installer (Cursor, Claude, Kiro, VS Code)"
+echo "==> ai-dev-skills installer (Cursor, Antigravity, Claude, Kiro, VS Code)"
 echo "    manifest: $MANIFEST"
 echo
 
-for d in "$CURSOR_RULES" "$CLAUDE_RULES" "$VSCODE_RULES" "$KIRO_RULES" "$AGENTS_SKILLS" "$CURSOR_SKILLS" "$CLAUDE_SKILLS" "$VSCODE_SKILLS" "$KIRO_SKILLS"; do
+for d in "$CURSOR_RULES" "$GEMINI_RULES" "$CLAUDE_RULES" "$VSCODE_RULES" "$KIRO_RULES" "$AGENTS_SKILLS" "$CURSOR_SKILLS" "$GEMINI_SKILLS" "$CLAUDE_SKILLS" "$VSCODE_SKILLS" "$KIRO_SKILLS"; do
   mkdir -p "$d" 2>/dev/null || true
 done
 
@@ -65,9 +67,9 @@ install_one() {
 
   set +e
   if [[ -n "$skill_name" ]]; then
-    npx -y skills add "$pkg" -s "$skill_name" -a cursor -a claude -a vscode -a kiro -g -y 2>/dev/null || npx -y skills add "$pkg" -s "$skill_name" -a cursor -g -y
+    npx -y skills add "$pkg" -s "$skill_name" -a cursor -a antigravity -a claude -a vscode -a kiro -g -y 2>/dev/null || npx -y skills add "$pkg" -s "$skill_name" -a cursor -g -y
   else
-    npx -y skills add "$pkg" -a cursor -a claude -a vscode -a kiro -g -y 2>/dev/null || npx -y skills add "$pkg" -a cursor -g -y
+    npx -y skills add "$pkg" -a cursor -a antigravity -a claude -a vscode -a kiro -g -y 2>/dev/null || npx -y skills add "$pkg" -a cursor -g -y
   fi
   local rc=$?
   set -e
@@ -98,7 +100,7 @@ for (const s of skills) {
 }
 ' "$MANIFEST")
 
-echo "==> copy rules → Cursor, Claude, Kiro, VS Code"
+echo "==> copy rules → Cursor, Antigravity, Claude, Kiro, VS Code"
 if [[ -d "$RULES_SRC" ]]; then
   copied=0
   for f in "$RULES_SRC"/*.mdc; do
@@ -109,12 +111,13 @@ if [[ -d "$RULES_SRC" ]]; then
     # Copy to Cursor
     cp -f "$f" "$CURSOR_RULES/$base" 2>/dev/null || true
 
-    # Copy both .mdc and .md to Claude, VS Code, Kiro
+    # Copy to Antigravity, Claude, VS Code, Kiro
+    (cp -f "$f" "$GEMINI_RULES/$base" && cp -f "$f" "$GEMINI_RULES/$base_md") 2>/dev/null || true
     (cp -f "$f" "$CLAUDE_RULES/$base" && cp -f "$f" "$CLAUDE_RULES/$base_md") 2>/dev/null || true
     (cp -f "$f" "$VSCODE_RULES/$base" && cp -f "$f" "$VSCODE_RULES/$base_md") 2>/dev/null || true
     (cp -f "$f" "$KIRO_RULES/$base"   && cp -f "$f" "$KIRO_RULES/$base_md") 2>/dev/null || true
 
-    echo "    copied $base (Cursor, Claude, Kiro, VS Code)"
+    echo "    copied $base (Cursor, Antigravity, Claude, Kiro, VS Code)"
     copied=$((copied + 1))
   done
   if [[ $copied -eq 0 ]]; then
@@ -125,7 +128,7 @@ else
 fi
 echo
 
-echo "==> setup MCP godkiller → Cursor, Claude, Kiro, VS Code"
+echo "==> setup MCP godkiller → Cursor, Antigravity, Claude, Kiro, VS Code"
 VENV_DIR="${HOME}/.godkiller-mcp-venv"
 if [[ ! -x "${VENV_DIR}/bin/godkiller-mcp" ]]; then
   echo "    creating venv and installing godkiller-mcp..."
@@ -139,6 +142,8 @@ const path = require("path");
 
 const targets = [
   path.join(process.env.HOME, ".cursor", "mcp.json"),
+  path.join(process.env.HOME, ".gemini", "mcp.json"),
+  path.join(process.env.HOME, ".gemini", "antigravity-ide", "mcp.json"),
   path.join(process.env.HOME, ".claude", "mcp.json"),
   path.join(process.env.HOME, "Library", "Application Support", "Claude", "claude_desktop_config.json"),
   path.join(process.env.HOME, ".vscode", "mcp.json"),
@@ -168,8 +173,8 @@ echo
 echo "==> summary"
 echo "    skills OK:   $ok"
 echo "    skills FAIL: $fail"
-echo "    targets:     Cursor (~/.cursor), Claude (~/.claude), VS Code (~/.vscode), Kiro (~/.kiro)"
+echo "    targets:     Cursor (~/.cursor), Antigravity (~/.gemini), Claude (~/.claude), VS Code (~/.vscode), Kiro (~/.kiro)"
 [[ -n "${installed_ids}" ]] && echo "    installed:  ${installed_ids# }"
 [[ -n "${failed_ids}" ]] && echo "    failed:     ${failed_ids# }"
 echo
-echo "Done. Open a new chat session in Cursor, Claude, Kiro, or VS Code."
+echo "Done. Open a new chat session in Cursor, Antigravity, Claude, Kiro, or VS Code."

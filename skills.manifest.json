@@ -174,5 +174,45 @@
     "alwaysOn": false,
     "purpose": "Kubernetes cluster triage and pod diagnostic playbook",
     "invoke": "/kube-investigate"
+  },
+  {
+    "id": "claude-context",
+    "source": "thaitype/skills@claude-context",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Check context window usage & free space for Claude Code session",
+    "invoke": "/claude-context"
+  },
+  {
+    "id": "claude-usage",
+    "source": "thaitype/skills@claude-usage",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Show token usage & estimated API cost for a session",
+    "invoke": "/claude-usage"
+  },
+  {
+    "id": "claude-session-log",
+    "source": "thaitype/skills@claude-session-log",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Replay Claude Code session as transcript or JSON for inspection",
+    "invoke": "/claude-session-log"
+  },
+  {
+    "id": "docker-playwright",
+    "source": "thaitype/skills@docker-playwright",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Run Playwright E2E tests inside a shared Docker container",
+    "invoke": "/docker-playwright"
+  },
+  {
+    "id": "sync-git",
+    "source": "thaitype/skills@sync-git",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Sync git repo with remote — pull, auto-commit, push",
+    "invoke": "/sync-git"
   }
 ]
