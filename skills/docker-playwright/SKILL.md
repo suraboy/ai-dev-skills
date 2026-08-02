@@ -1,37 +1,25 @@
 ---
 name: docker-playwright
-description: Run Playwright E2E tests inside Docker container or fallback to local runner. Auto-installs Playwright & finishes test run in 1 step. Use when user says "/docker-playwright", "run playwright", or "run e2e tests".
+description: Run Playwright E2E tests inside Docker container or fallback to local runner. Auto-creates config, specs & runs test suite in 1 step. Use when user says "/docker-playwright", "run playwright", or "run e2e tests".
 ---
 
 Run Playwright E2E tests for the current project. 1-Step Execution.
 
-## Execution Strategy (Zero Friction)
+## Automated Workflow
 
-1. Check if Docker daemon socket accessible. If accessible, run inside container `pw`.
-2. If Docker socket restricted by sandbox/OS permission ⇒ Fallback seamlessly to local execution (`pnpm exec playwright test`).
-3. Auto-install `@playwright/test` and generate `playwright.config.ts` + `e2e/smoke.spec.ts` if missing.
+### Step 1: Detect Target Project Path
+- Inspect active document path or CWD.
+- If in frontend repository (e.g., `frontend-cost-tool-fresh-food`), target project = that folder.
 
-## Steps
-
-### Step 1: Prepare Project Dependencies & Config
-
-Run in current project directory:
-
-```bash
-# Check & Install @playwright/test if missing
-if ! grep -q '@playwright/test' package.json 2>/dev/null; then
-  pnpm add -D @playwright/test || npm install -D @playwright/test
-fi
-
-# Check & Create playwright.config.ts + e2e/smoke.spec.ts if missing
-if [ ! -f playwright.config.ts ] && [ ! -f playwright.config.js ]; then
-  cat << 'EOF' > playwright.config.ts
+### Step 2: Auto-Create Test Setup Files (using write_to_file tool if missing)
+1. `playwright.config.ts`:
+```typescript
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
-  reporter: 'html',
+  reporter: 'list',
   use: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
@@ -40,41 +28,19 @@ export default defineConfig({
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
 });
-EOF
-  mkdir -p e2e
-  cat << 'EOF' > e2e/smoke.spec.ts
+```
+
+2. `e2e/smoke.spec.ts`:
+```typescript
 import { test, expect } from '@playwright/test';
 
 test('homepage loads', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/./);
 });
-EOF
-fi
 ```
 
-### Step 2: Execute Test Suite (Container or Host Fallback)
-
-```bash
-# 1. Try Docker Container Execution if socket available
-if docker ps >/dev/null 2>&1; then
-  BASE_ROOT="$HOME/Documents"
-  HOST_PWD="$(pwd)"
-  case "$HOST_PWD" in
-    "$BASE_ROOT"/*) CPATH="/work/${HOST_PWD#$BASE_ROOT/}" ;;
-    *) CPATH="/work" ;;
-  esac
-  
-  if ! docker ps --format '{{.Names}}' | grep -qx pw; then
-    docker run -d --name pw --init --ipc=host -v "$BASE_ROOT:/work" -w /work -u "$(id -u):$(id -g)" mcr.microsoft.com/playwright:v1.59.1-noble sleep infinity 2>/dev/null || true
-  fi
-  docker exec pw bash -lc "cd '$CPATH' && npx playwright test $ARGS"
-else
-  # 2. Fallback to Local Host Test Execution
-  npx playwright install chromium --with-deps 2>/dev/null || true
-  pnpm exec playwright test $ARGS || npx playwright test $ARGS
-fi
-```
-
-### Step 3: Report Pass/Fail Summary
-Print test results directly to user chat.
+### Step 3: Run Tests & Output Results
+1. Check Docker daemon access (`docker ps`). If available, run in container `pw`.
+2. If Docker socket restricted by IDE sandbox, execute local runner (`pnpm exec playwright test` / `npx playwright test`).
+3. Print pass/fail summary and test outputs directly in Chat window.
