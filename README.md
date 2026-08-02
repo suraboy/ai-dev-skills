@@ -73,7 +73,7 @@ Start a new Cursor chat after changing rules.
 
 - New Cursor chat picks up rule changes; existing threads may keep old context.
 - Other machines: clone this repo and re-run `./install.sh` (skills live under your home dir, not in git).
-- Installer runs `npx -y skills add <pkg> -s <skill> -a cursor -g -y` per manifest entry, then copies `rules/*.mdc` → `~/.cursor/rules/`.
+- Installer runs `npx -y skills add <pkg> -s <skill> -a cursor -g -y` per manifest entry, copies `rules/*.mdc` → `~/.cursor/rules/`, and configures `godkiller` MCP server in `~/.cursor/mcp.json`.
 - Do not commit secrets, API keys, or local skill trees.
 
 ## License

@@ -105,6 +105,32 @@ else
 fi
 echo
 
+echo "==> setup MCP godkiller → ~/.cursor/mcp.json"
+VENV_DIR="${HOME}/.godkiller-mcp-venv"
+if [[ ! -x "${VENV_DIR}/bin/godkiller-mcp" ]]; then
+  echo "    creating venv and installing godkiller-mcp..."
+  python3 -m venv "$VENV_DIR"
+  "${VENV_DIR}/bin/pip" install --quiet godkiller-mcp || true
+fi
+
+node -e '
+const fs = require("fs");
+const path = require("path");
+const mcpPath = path.join(process.env.HOME, ".cursor", "mcp.json");
+let cfg = { mcpServers: {} };
+if (fs.existsSync(mcpPath)) {
+  try { cfg = JSON.parse(fs.readFileSync(mcpPath, "utf8")); } catch(e){}
+}
+if (!cfg.mcpServers) cfg.mcpServers = {};
+cfg.mcpServers.godkiller = {
+  command: process.env.HOME + "/.godkiller-mcp-venv/bin/godkiller-mcp"
+};
+fs.mkdirSync(path.dirname(mcpPath), { recursive: true });
+fs.writeFileSync(mcpPath, JSON.stringify(cfg, null, 2) + "\n");
+'
+echo "    MCP godkiller configured in ~/.cursor/mcp.json"
+echo
+
 echo "==> skill path check"
 while IFS="$(printf '\t')" read -r id source _always_on _scope _invoke; do
   [[ -n "$id" ]] || continue

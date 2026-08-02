@@ -134,5 +134,45 @@
     "alwaysOn": false,
     "purpose": "Delegate to caveman-compressed subagents (investigator/builder/reviewer)",
     "invoke": "/cavecrew"
+  },
+  {
+    "id": "runtime-forensics",
+    "source": "poteto/pstack@runtime-forensics",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Live runtime instrumentation & systematic debugging playbook",
+    "invoke": "/runtime-forensics"
+  },
+  {
+    "id": "grill-me",
+    "source": "sickn33/antigravity-awesome-skills@grill-me",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Interactive interview to stress-test plans and resolve design decisions",
+    "invoke": "/grill-me"
+  },
+  {
+    "id": "investigate-cli",
+    "source": "sickn33/antigravity-awesome-skills@investigate-cli",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Find image, OCR, and vision processing logic in codebase",
+    "invoke": "/investigate-cli"
+  },
+  {
+    "id": "jira-test-from-ticket",
+    "source": "sickn33/antigravity-awesome-skills@jira-test-from-ticket",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Generate automated test suite from Jira acceptance criteria",
+    "invoke": "/jira-test-from-ticket"
+  },
+  {
+    "id": "kube-investigate",
+    "source": "sickn33/antigravity-awesome-skills@kube-investigate",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Kubernetes cluster triage and pod diagnostic playbook",
+    "invoke": "/kube-investigate"
   }
 ]
