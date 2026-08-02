@@ -1,0 +1,14 @@
+---
+description: Sync git repo with remote — pull, auto-commit, push
+alwaysApply: false
+---
+
+# sync-git
+
+Sync git repo with remote — pull, auto-commit, push
+
+## Invoke
+`/sync-git`
+
+## Full Instructions
+Read full skill instructions in `skills/sync-git/SKILL.md`

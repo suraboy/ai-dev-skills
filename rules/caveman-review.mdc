@@ -1,0 +1,14 @@
+---
+description: One-line PR review comments: location, problem, fix
+alwaysApply: false
+---
+
+# caveman-review
+
+One-line PR review comments: location, problem, fix
+
+## Invoke
+`/caveman-review`
+
+## Full Instructions
+Read full skill instructions in `skills/caveman-review/SKILL.md`

@@ -1,0 +1,14 @@
+---
+description: Eval frameworks for agent systems and context engineering
+alwaysApply: false
+---
+
+# evaluation
+
+Eval frameworks for agent systems and context engineering
+
+## Invoke
+`/evaluation`
+
+## Full Instructions
+Read full skill instructions in `skills/evaluation/SKILL.md`

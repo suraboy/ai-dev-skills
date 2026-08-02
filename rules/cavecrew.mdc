@@ -1,0 +1,14 @@
+---
+description: Delegate to caveman-compressed subagents (investigator/builder/reviewer)
+alwaysApply: false
+---
+
+# cavecrew
+
+Delegate to caveman-compressed subagents (investigator/builder/reviewer)
+
+## Invoke
+`/cavecrew`
+
+## Full Instructions
+Read full skill instructions in `skills/cavecrew/SKILL.md`

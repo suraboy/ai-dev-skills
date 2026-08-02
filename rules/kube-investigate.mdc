@@ -1,0 +1,14 @@
+---
+description: Kubernetes cluster triage and pod diagnostic playbook
+alwaysApply: false
+---
+
+# kube-investigate
+
+Kubernetes cluster triage and pod diagnostic playbook
+
+## Invoke
+`/kube-investigate`
+
+## Full Instructions
+Read full skill instructions in `skills/kube-investigate/SKILL.md`

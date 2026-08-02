@@ -1,0 +1,14 @@
+---
+description: Live runtime instrumentation & systematic debugging playbook
+alwaysApply: false
+---
+
+# runtime-forensics
+
+Live runtime instrumentation & systematic debugging playbook
+
+## Invoke
+`/runtime-forensics`
+
+## Full Instructions
+Read full skill instructions in `skills/runtime-forensics/SKILL.md`

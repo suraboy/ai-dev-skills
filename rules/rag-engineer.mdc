@@ -1,0 +1,14 @@
+---
+description: RAG systems: embeddings, chunking, retrieval, vector DBs
+alwaysApply: false
+---
+
+# rag-engineer
+
+RAG systems: embeddings, chunking, retrieval, vector DBs
+
+## Invoke
+`/rag-engineer`
+
+## Full Instructions
+Read full skill instructions in `skills/rag-engineer/SKILL.md`

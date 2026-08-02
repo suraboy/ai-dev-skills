@@ -1,0 +1,21 @@
+---
+description: Run Playwright tests inside a shared Docker container
+alwaysApply: false
+---
+
+# Docker Playwright E2E Skill
+
+Run Playwright E2E tests for the current project inside a shared Docker container (`pw`).
+
+## Invoke
+`/docker-playwright` or ask "run playwright in docker"
+
+## Workflow Summary
+1. Map host CWD ($HOME/gits/...) to container /work
+2. Ensure container `pw` (`mcr.microsoft.com/playwright:v1.59.1-noble`) is running
+3. Run `docker exec pw bash -lc "cd '$CPATH' && npx playwright test $ARGS"`
+4. Report pass/fail and report host URL (`0.0.0.0`) if tests failed
+
+## Full Instructions
+Read full skill instructions from:
+`~/.gemini/config/skills/docker-playwright/SKILL.md` or `~/.agents/skills/docker-playwright/SKILL.md`

@@ -1,0 +1,14 @@
+---
+description: Design autonomous agents: tools, memory, multi-agent orchestration
+alwaysApply: false
+---
+
+# ai-agents-architect
+
+Design autonomous agents: tools, memory, multi-agent orchestration
+
+## Invoke
+`/ai-agents-architect`
+
+## Full Instructions
+Read full skill instructions in `skills/ai-agents-architect/SKILL.md`

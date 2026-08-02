@@ -1,0 +1,14 @@
+---
+description: Check context window usage & free space for Claude Code session
+alwaysApply: false
+---
+
+# claude-context
+
+Check context window usage & free space for Claude Code session
+
+## Invoke
+`/claude-context`
+
+## Full Instructions
+Read full skill instructions in `skills/claude-context/SKILL.md`

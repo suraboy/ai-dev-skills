@@ -1,0 +1,14 @@
+---
+description: Find image, OCR, and vision processing logic in codebase
+alwaysApply: false
+---
+
+# investigate-cli
+
+Find image, OCR, and vision processing logic in codebase
+
+## Invoke
+`/investigate-cli`
+
+## Full Instructions
+Read full skill instructions in `skills/investigate-cli/SKILL.md`

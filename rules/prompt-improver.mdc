@@ -1,0 +1,14 @@
+---
+description: Improve a prompt: diagnose gaps, rewrite, improvement points
+alwaysApply: false
+---
+
+# prompt-improver
+
+Improve a prompt: diagnose gaps, rewrite, improvement points
+
+## Invoke
+`/prompt-improver`
+
+## Full Instructions
+Read full skill instructions in `skills/prompt-improver/SKILL.md`

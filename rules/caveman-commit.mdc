@@ -1,0 +1,14 @@
+---
+description: Terse Conventional Commits messages
+alwaysApply: false
+---
+
+# caveman-commit
+
+Terse Conventional Commits messages
+
+## Invoke
+`/caveman-commit`
+
+## Full Instructions
+Read full skill instructions in `skills/caveman-commit/SKILL.md`

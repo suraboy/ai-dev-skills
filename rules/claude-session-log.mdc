@@ -1,0 +1,14 @@
+---
+description: Replay Claude Code session as transcript or JSON for inspection
+alwaysApply: false
+---
+
+# claude-session-log
+
+Replay Claude Code session as transcript or JSON for inspection
+
+## Invoke
+`/claude-session-log`
+
+## Full Instructions
+Read full skill instructions in `skills/claude-session-log/SKILL.md`

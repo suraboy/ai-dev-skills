@@ -1,0 +1,14 @@
+---
+description: Compress memory/CLAUDE.md files into caveman format
+alwaysApply: false
+---
+
+# caveman-compress
+
+Compress memory/CLAUDE.md files into caveman format
+
+## Invoke
+`/caveman-compress`
+
+## Full Instructions
+Read full skill instructions in `skills/caveman-compress/SKILL.md`

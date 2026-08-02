@@ -1,0 +1,14 @@
+---
+description: Generate automated test suite from Jira acceptance criteria
+alwaysApply: false
+---
+
+# jira-test-from-ticket
+
+Generate automated test suite from Jira acceptance criteria
+
+## Invoke
+`/jira-test-from-ticket`
+
+## Full Instructions
+Read full skill instructions in `skills/jira-test-from-ticket/SKILL.md`

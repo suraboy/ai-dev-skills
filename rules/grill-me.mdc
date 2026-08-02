@@ -1,0 +1,14 @@
+---
+description: Interactive interview to stress-test plans and resolve design decisions
+alwaysApply: false
+---
+
+# grill-me
+
+Interactive interview to stress-test plans and resolve design decisions
+
+## Invoke
+`/grill-me`
+
+## Full Instructions
+Read full skill instructions in `skills/grill-me/SKILL.md`

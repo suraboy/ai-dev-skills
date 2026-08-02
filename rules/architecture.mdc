@@ -1,0 +1,14 @@
+---
+description: Architecture decisions, trade-offs, ADR documentation
+alwaysApply: false
+---
+
+# architecture
+
+Architecture decisions, trade-offs, ADR documentation
+
+## Invoke
+`/architecture`
+
+## Full Instructions
+Read full skill instructions in `skills/architecture/SKILL.md`

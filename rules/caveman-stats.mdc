@@ -1,0 +1,14 @@
+---
+description: Show session token usage / estimated savings
+alwaysApply: false
+---
+
+# caveman-stats
+
+Show session token usage / estimated savings
+
+## Invoke
+`/caveman-stats`
+
+## Full Instructions
+Read full skill instructions in `skills/caveman-stats/SKILL.md`

@@ -1,0 +1,14 @@
+---
+description: Transform prompts via frameworks (RTF, RISEN, CoT, RODES, …)
+alwaysApply: false
+---
+
+# prompt-engineer
+
+Transform prompts via frameworks (RTF, RISEN, CoT, RODES, …)
+
+## Invoke
+`/prompt-engineer`
+
+## Full Instructions
+Read full skill instructions in `skills/prompt-engineer/SKILL.md`
