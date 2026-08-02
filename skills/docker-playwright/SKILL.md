@@ -27,7 +27,9 @@ Try in order:
    - Assert HTTP 200 & HTML `<title>`.
    - Output `[STATUS]: PASSED (via IDE Native Fallback)`.
 
-## Output Template
+### Step 4: Mandatory Output Format (MUST INCLUDE ROUTES & SPECS)
+Output MUST follow this exact format:
+
 ```
 [docker-playwright] E2E Suite Executed
 
