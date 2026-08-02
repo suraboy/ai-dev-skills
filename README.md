@@ -1,16 +1,18 @@
 # ai-dev-skills
 
-Bootstrap repo for a personal Cursor skill set: manifest + installer + short always-on rules.
+Bootstrap repo for personal AI assistant skills & rules: manifest + multi-IDE installer + short always-on rules.
 
-Installs third-party skills via [`npx skills`](https://skills.sh/) into Cursor **global** scope. Does **not** vendor full `SKILL.md` trees.
+Supports: **Cursor**, **Claude Code**, **Kiro**, and **VS Code**.
+
+Installs third-party skills via [`npx skills`](https://skills.sh/) into global scope across all supported editors. Does **not** vendor full `SKILL.md` trees.
 
 ## What this is / is not
 
 | Is | Is not |
 | --- | --- |
 | Declarative list of skills (`skills.manifest.json`) | A fork/copy of upstream skill repos |
-| Idempotent installer (`./install.sh`) | A secrets store or machine-specific config dump |
-| Short always-on Cursor rules (`rules/*.mdc`) | Full scored architecture reports / long tutorials on every chat turn |
+| Multi-IDE idempotent installer (`./install.sh`) | A secrets store or machine-specific config dump |
+| Short always-on rules (`rules/*.mdc`) | Full scored architecture reports / long tutorials on every chat turn |
 | Docs for how to extend the set | A multi-agent runtime or RAG product |
 
 ## Quick start
@@ -24,7 +26,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
-Then open a **new** Cursor chat so always-on rules reload.
+Then open a **new** chat session in **Cursor**, **Claude**, **Kiro**, or **VS Code** so rules reload.
 
 ## Always-on vs on-demand
 
@@ -37,9 +39,18 @@ Then open a **new** Cursor chat so always-on rules reload.
 | technical-writing | `rules/technical-writing.mdc` | `/technical-writing` |
 | architecture-reviewer | `rules/architecture-reviewer.mdc` | `/architecture-reviewer` |
 
-Chat stays terse (caveman). Docs, prompts, and full architecture-review artifacts use their own standards when you ask for those deliverables. Rules stay short pointers — full workflow lives under `~/.agents/skills/<id>/SKILL.md` (or `~/.cursor/skills/`).
+Chat stays terse (caveman). Docs, prompts, and full architecture-review artifacts use their own standards when you ask for those deliverables. Rules stay short pointers — full workflow lives under `~/.agents/skills/<id>/SKILL.md` (or `~/.cursor/skills/`, `~/.claude/skills/`, `~/.vscode/skills/`, `~/.kiro/skills/`).
 
-**On-demand** skills install the same way but have no always-apply rule. Invoke with slash command or by asking for the skill by name (RAG, agents, eval, system design, architecture ADRs, prompt improver/engineer, caveman siblings).
+**On-demand** skills install the same way but have no always-apply rule. Invoke with slash command or by asking for the skill by name.
+
+## Supported Editors & Target Paths
+
+| Editor / Agent | Rules Directory | Skills Directory | MCP Config |
+| --- | --- | --- | --- |
+| **Cursor** | `~/.cursor/rules/` | `~/.cursor/skills/` | `~/.cursor/mcp.json` |
+| **Claude Code** | `~/.claude/rules/` | `~/.claude/skills/` | `~/.claude/mcp.json` |
+| **Kiro** | `~/.kiro/rules/` | `~/.kiro/skills/` | `~/.kiro/mcp.json` |
+| **VS Code** | `~/.vscode/rules/` | `~/.vscode/skills/` | `~/.vscode/mcp.json` |
 
 ## How to add a skill
 
@@ -56,25 +67,8 @@ Chat stays terse (caveman). Docs, prompts, and full architecture-review artifact
 }
 ```
 
-2. If always-on: add `rules/my-skill.mdc` with `alwaysApply: true` (keep under ~60 lines; point at full `SKILL.md`).
+2. If always-on: add `rules/my-skill.mdc` with `alwaysApply: true`.
 3. Re-run `./install.sh`.
-
-## How to disable always-on
-
-Pick one:
-
-- Remove or rename the file under `~/.cursor/rules/` (e.g. `caveman.mdc` → `caveman.mdc.off`)
-- Edit the rule frontmatter: set `alwaysApply: false`
-- Or delete the matching file from this repo’s `rules/` and re-copy / stop installing it
-
-Start a new Cursor chat after changing rules.
-
-## Notes
-
-- New Cursor chat picks up rule changes; existing threads may keep old context.
-- Other machines: clone this repo and re-run `./install.sh` (skills live under your home dir, not in git).
-- Installer runs `npx -y skills add <pkg> -s <skill> -a cursor -g -y` per manifest entry, copies `rules/*.mdc` → `~/.cursor/rules/`, and configures `godkiller` MCP server in `~/.cursor/mcp.json`.
-- Do not commit secrets, API keys, or local skill trees.
 
 ## License
 
