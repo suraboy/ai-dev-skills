@@ -1,83 +1,31 @@
 ---
 name: docker-playwright
-description: Run Playwright tests inside a Docker container (the long-lived "pw" container running the official mcr.microsoft.com/playwright image, with host directory mounted at /work). Auto-installs Playwright & creates baseline config if missing. Use when the user wants to run, debug, or report Playwright tests via Docker.
+description: Run Playwright E2E tests inside Docker container or fallback to local runner. Auto-installs Playwright & finishes test run in 1 step. Use when user says "/docker-playwright", "run playwright", or "run e2e tests".
 ---
 
-Run Playwright tests for the current project inside a shared Docker container. Auto-bootstrap Playwright if missing.
+Run Playwright E2E tests for the current project. 1-Step Execution.
 
-## Constants
+## Execution Strategy (Zero Friction)
 
-- `CONTAINER=pw`
-- `IMAGE=mcr.microsoft.com/playwright:v1.59.1-noble`
-- `HOST_ROOT=$HOME/Documents` (auto-detected)
-
-## Arguments
-
-Everything passed after skill name is forwarded to `playwright test`.
-
-## Gotchas
-
-- **Never use `docker exec -it`** — use plain `docker exec`.
-- Headed runs require `xvfb-run`.
+1. Check if Docker daemon socket accessible. If accessible, run inside container `pw`.
+2. If Docker socket restricted by sandbox/OS permission ⇒ Fallback seamlessly to local execution (`pnpm exec playwright test`).
+3. Auto-install `@playwright/test` and generate `playwright.config.ts` + `e2e/smoke.spec.ts` if missing.
 
 ## Steps
 
-### 1. Map directory into container
+### Step 1: Prepare Project Dependencies & Config
+
+Run in current project directory:
 
 ```bash
-HOST_PWD="$(pwd)"
-BASE_ROOT="$HOME/Documents"
-
-if [ -d "$HOME/gits" ]; then
-  BASE_ROOT="$HOME/gits"
-elif [ -d "$HOME/Documents" ]; then
-  BASE_ROOT="$HOME/Documents"
-else
-  BASE_ROOT="$HOME"
+# Check & Install @playwright/test if missing
+if ! grep -q '@playwright/test' package.json 2>/dev/null; then
+  pnpm add -D @playwright/test || npm install -D @playwright/test
 fi
 
-case "$HOST_PWD" in
-  "$BASE_ROOT") CPATH="/work" ;;
-  "$BASE_ROOT"/*) CPATH="/work/${HOST_PWD#$BASE_ROOT/}" ;;
-  *) CPATH="/work" ;;
-esac
-echo "Container path: $CPATH"
-```
-
-### 2. Ensure container running
-
-```bash
-if docker ps --format '{{.Names}}' | grep -qx pw; then
-  :
-elif docker ps -a --format '{{.Names}}' | grep -qx pw; then
-  docker start pw
-else
-  docker run -d \
-    --name pw \
-    --init \
-    --ipc=host \
-    -v "$BASE_ROOT:/work" \
-    -w /work \
-    -u "$(id -u):$(id -g)" \
-    mcr.microsoft.com/playwright:v1.59.1-noble \
-    sleep infinity
-fi
-```
-
-### 3. Auto-install & Bootstrap Playwright if missing
-
-If `@playwright/test` or `playwright.config.ts` missing, auto-install dependency and create baseline config + sample spec.
-
-```bash
-docker exec pw bash -lc "cd '$CPATH' && {
-  if ! grep -q '@playwright/test' package.json 2>/dev/null; then
-    echo '==> Auto-installing @playwright/test...'
-    pnpm add -D @playwright/test || npm install -D @playwright/test
-  fi
-
-  if [ ! -f playwright.config.ts ] && [ ! -f playwright.config.js ]; then
-    echo '==> Auto-generating playwright.config.ts & sample spec...'
-    cat << 'EOF' > playwright.config.ts
+# Check & Create playwright.config.ts + e2e/smoke.spec.ts if missing
+if [ ! -f playwright.config.ts ] && [ ! -f playwright.config.js ]; then
+  cat << 'EOF' > playwright.config.ts
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -85,7 +33,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'html',
   use: {
-    baseURL: process.env.BASE_URL || 'http://host.docker.internal:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
   },
   projects: [
@@ -93,8 +41,8 @@ export default defineConfig({
   ],
 });
 EOF
-    mkdir -p e2e
-    cat << 'EOF' > e2e/smoke.spec.ts
+  mkdir -p e2e
+  cat << 'EOF' > e2e/smoke.spec.ts
 import { test, expect } from '@playwright/test';
 
 test('homepage loads', async ({ page }) => {
@@ -102,20 +50,31 @@ test('homepage loads', async ({ page }) => {
   await expect(page).toHaveTitle(/./);
 });
 EOF
+fi
+```
+
+### Step 2: Execute Test Suite (Container or Host Fallback)
+
+```bash
+# 1. Try Docker Container Execution if socket available
+if docker ps >/dev/null 2>&1; then
+  BASE_ROOT="$HOME/Documents"
+  HOST_PWD="$(pwd)"
+  case "$HOST_PWD" in
+    "$BASE_ROOT"/*) CPATH="/work/${HOST_PWD#$BASE_ROOT/}" ;;
+    *) CPATH="/work" ;;
+  esac
+  
+  if ! docker ps --format '{{.Names}}' | grep -qx pw; then
+    docker run -d --name pw --init --ipc=host -v "$BASE_ROOT:/work" -w /work -u "$(id -u):$(id -g)" mcr.microsoft.com/playwright:v1.59.1-noble sleep infinity 2>/dev/null || true
   fi
-
-  [ -d node_modules ] || pnpm install || npm install
-}"
+  docker exec pw bash -lc "cd '$CPATH' && npx playwright test $ARGS"
+else
+  # 2. Fallback to Local Host Test Execution
+  npx playwright install chromium --with-deps 2>/dev/null || true
+  pnpm exec playwright test $ARGS || npx playwright test $ARGS
+fi
 ```
 
-### 4. Run tests
-
-```bash
-docker exec pw bash -lc "cd '$CPATH' && npx playwright test $ARGS"
-```
-
-### 5. Report results
-
-```bash
-docker exec pw bash -lc "cd '$CPATH' && npx playwright show-report --host 0.0.0.0"
-```
+### Step 3: Report Pass/Fail Summary
+Print test results directly to user chat.
