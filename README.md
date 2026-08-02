@@ -43,6 +43,24 @@ Chat stays terse (caveman). Docs, prompts, and full architecture-review artifact
 
 **On-demand** skills install the same way but have no always-apply rule. Invoke with slash command or by asking for the skill by name.
 
+## Token Optimization Commands & Strategies
+
+To minimize token consumption and maximize context efficiency, use the following commands and practices:
+
+| Command / Strategy | Purpose | Token Impact |
+| --- | --- | --- |
+| `/caveman` | Ultra-compressed communication mode. Cuts response verbosity while keeping technical precision. | **~75% output token savings** |
+| `/cavecrew` | Spawns caveman-compressed subagents (investigator, builder, reviewer) for search & edits. | **~60% context log reduction** |
+| `/caveman-compress <file>` | Compresses memory files (`CLAUDE.md`, `.cursorrules`, preferences) into dense caveman format. | **~70% prompt token reduction** |
+| `/caveman-commit` | Generates short, high-signal Conventional Commit messages. | Reduces commit output tokens |
+| `/caveman-review` | Provides single-line PR review comments (`location: problem. fix.`). | Cuts review output noise |
+| `/caveman-stats` | Displays real-time session token usage and estimated token savings. | Session token tracking |
+
+### Best Practices for Token Efficiency
+1. **Reset Chat Sessions:** Start a fresh chat window when switching tasks to clear accumulated turn history.
+2. **Narrow File References:** Reference specific files or line ranges (e.g., `[file.ts#L10-L40]`) instead of attaching entire folders.
+3. **Keep Always-On Rules Short:** Keep files in `rules/*.mdc` under ~30-50 lines to avoid inflating the base system prompt.
+
 ## Supported Editors & Target Paths
 
 | Editor / Agent | Rules Directory | Skills Directory | MCP Config |
