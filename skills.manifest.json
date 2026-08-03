@@ -214,5 +214,13 @@
     "alwaysOn": false,
     "purpose": "Sync git repo with remote — pull, auto-commit, push",
     "invoke": "/sync-git"
+  },
+  {
+    "id": "model-router",
+    "source": "thaitype/skills@model-router",
+    "scope": "global",
+    "alwaysOn": false,
+    "purpose": "Dynamic Model Router for evaluating and allocating LLMs to tasks",
+    "invoke": "/model-router"
   }
 ]
